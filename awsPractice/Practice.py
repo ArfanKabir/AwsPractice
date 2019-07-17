@@ -1,6 +1,7 @@
 import csv  
 import json
-  
+import boto3
+s3 = boto3.client('s3')
 # Open the CSV  
 with open('county_facts_kaggle.csv','r') as csvFile:
         majFile = open('majFile.json','w')        
@@ -34,3 +35,5 @@ with open('county_facts_kaggle.csv','r') as csvFile:
         print("The number of minority counties: "+str(minCount))
         majFile.close()
         minFile.close()
+        s3.upload_file('majFile.json','thortech-test-bucket','majFile.json')
+        s3.upload_file('minFile.json','thortech-test-bucket','minFile.json')
